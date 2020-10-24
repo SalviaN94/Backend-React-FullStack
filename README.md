@@ -6,3 +6,4 @@ This service use Springboot, Jwt for authentication, a Mysql database and Aspect
 ## EndPoints
 - **GET** /cards -> Return all cards in the database with their information
 - **POST** /users -> Create an user with the username and password specified
+- **POST** /authenticate -> Return a Jwt Token if the credentials are valid.
