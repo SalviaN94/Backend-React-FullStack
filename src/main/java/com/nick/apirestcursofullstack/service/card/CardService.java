@@ -19,4 +19,8 @@ public class CardService {
     public List<Card> getAllCards(){
         return cardRepository.findAll();
     }
+
+    public Card getCardById(Long id){
+        return cardRepository.findById(id).get();
+    }
 }
