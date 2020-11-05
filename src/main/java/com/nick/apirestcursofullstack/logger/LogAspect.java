@@ -40,12 +40,25 @@ public class LogAspect {
                 request.getRequestURL() + "\n");
     }
 
+    @After("loggingPutMethod()")
+    public void logPutMethodInfo(final JoinPoint joinPoint){
+        Object parameters[] = joinPoint.getArgs();
+        HttpServletRequest request = (HttpServletRequest) parameters[0];
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        writer.writeLog(dtf.format(now) + ": Realizada petición PUT desde " + request.getRemoteAddr() + " hacia " +
+                request.getRequestURL() + "\n");
+    }
+
     @Pointcut("@annotation(com.nick.apirestcursofullstack.logger.LogGetMethod)")
     private void loggingGetMethod() {
     }
 
     @Pointcut("@annotation(com.nick.apirestcursofullstack.logger.LogPostMethod)")
     private void loggingPostMethod() {
+    }
 
+    @Pointcut("@annotation(com.nick.apirestcursofullstack.logger.LogPutMethod)")
+    private void loggingPutMethod(){
     }
 }

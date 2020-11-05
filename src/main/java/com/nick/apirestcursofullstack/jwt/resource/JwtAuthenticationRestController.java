@@ -40,7 +40,12 @@ public class JwtAuthenticationRestController {
   public ResponseEntity<?> createAuthenticationToken(HttpServletRequest request, @RequestBody JwtTokenRequest authenticationRequest)
       throws AuthenticationException {
 
-    authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+    try {
+      authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+    }catch(AuthenticationException e){
+      if(e.getMessage().equals("INVALID_CREDENTIALS"))
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 
     final UserDetails userDetails = jwtInMemoryUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
@@ -69,7 +74,7 @@ public class JwtAuthenticationRestController {
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
   }
 
-  private void authenticate(String username, String password) {
+  private void authenticate(String username, String password) throws AuthenticationException{
     Objects.requireNonNull(username);
     Objects.requireNonNull(password);
 

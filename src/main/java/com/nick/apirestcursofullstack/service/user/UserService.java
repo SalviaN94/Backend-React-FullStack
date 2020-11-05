@@ -4,6 +4,7 @@ import com.nick.apirestcursofullstack.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -12,7 +13,7 @@ public class UserService {
     UserRepository userRepository;
 
     public User createUser(User user){
-        User existingUser = userRepository.findByUsername(user.getUsername());
+        User existingUser = userRepository.findByEmail(user.getEmail());
         if(existingUser != null)
             return existingUser;
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -22,8 +23,8 @@ public class UserService {
         return user;
     }
 
-    public User findUserByUsername(String username){
-        User existingUser = userRepository.findByUsername(username);
+    public User findUserByUsername(String email){
+        User existingUser = userRepository.findByEmail(email);
         return existingUser;
     }
 }

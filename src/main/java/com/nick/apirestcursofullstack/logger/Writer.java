@@ -12,7 +12,7 @@ public class Writer {
 
     public Writer(){
         try {
-            bufferedWriter = new BufferedWriter(new FileWriter("PetitionLogs.txt"));
+            bufferedWriter = new BufferedWriter(new FileWriter("PetitionLogs.txt", true));
         }catch (IOException e){
             e.printStackTrace();
         }

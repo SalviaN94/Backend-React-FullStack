@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,7 +20,7 @@ public class UserController {
     @PostMapping("/user")
     @LogPostMethod
     public ResponseEntity<User> createUser(HttpServletRequest request, @RequestBody User user){
-        if(userService.findUserByUsername(user.getUsername()) != null)
+        if(userService.findUserByUsername(user.getEmail()) != null)
             return new ResponseEntity<User>(user, HttpStatus.CONFLICT);
 
         User createdUser = userService.createUser(user);

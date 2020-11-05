@@ -19,11 +19,11 @@ public class JwtInMemoryUserDetailsService implements UserDetailsService {
   @Transactional(readOnly = true)
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-    User user = userRepository.findByUsername(username);
+    User user = userRepository.findByEmail(username);
     if(user == null)
       throw new UsernameNotFoundException(String.format("USER_NOT_FOUND '%s'.", username));
 
-    return new JwtUserDetails(user.getId(), user.getUsername(), user.getPassword(), user.getUserRole());
+    return new JwtUserDetails(user.getId(), user.getEmail(), user.getPassword(), user.getUserRole());
   }
 }
 

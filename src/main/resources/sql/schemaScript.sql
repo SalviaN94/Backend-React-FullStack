@@ -19,8 +19,10 @@ CREATE TABLE `cartas` (
 
 CREATE TABLE `usuarios`(
 	id INT AUTO_INCREMENT,
-    username VARCHAR(16),
+    email VARCHAR(52),
     userpass VARCHAR(512),
+    nombre VARCHAR(16),
+    apellido VARCHAR(16),
     user_role VARCHAR(16),
     PRIMARY KEY (id)
 ) ENGINE=INNODB;
